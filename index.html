@@ -1,966 +1,847 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeFlow | Visual Development Platform</title>
+    <title>Cheymin's TIME · 世界时钟 · 品牌官网</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
-        
+
+        :root {
+            --primary: #1e2b3c;
+            --secondary: #2c3e50;
+            --accent: #7f8fa6;
+            --light: #f0f4fa;
+            --dark: #0b1a2a;
+            --white: #ffffff;
+            --gold: #d4af37;
+            --gradient-start: #1a2639;
+            --gradient-end: #2c3e50;
+        }
+
         body {
-            font-family: 'Roboto', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
             line-height: 1.6;
-            color: #333;
-            background-color: #f9fbfd;
         }
-        
-        h1, h2, h3, h4 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header & Navigation */
+
+        /* ----- HEADER / 导航 (官网风格) ----- */
         header {
-            background-color: #fff;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: var(--white);
+            padding: 0.8rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
         }
-        
-        nav {
+
+        .container {
+            width: 92%;
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+
+        .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #fff;
         }
-        
-        .logo-icon {
-            color: #4361ee;
-            font-size: 28px;
-            margin-right: 10px;
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--gold);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }
-        
-        .logo-text {
-            font-family: 'Poppins', sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: #333;
+
+        .logo span {
+            background: linear-gradient(to right, #f0f4fa, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
-        .logo-text span {
-            color: #4361ee;
-        }
-        
-        .nav-links {
+
+        nav ul {
             display: flex;
             list-style: none;
+            align-items: center;
         }
-        
-        .nav-links li {
-            margin-left: 30px;
+
+        nav ul li {
+            margin-left: 2.2rem;
         }
-        
-        .nav-links a {
+
+        nav ul li a {
+            color: rgba(255,255,255,0.8);
             text-decoration: none;
-            color: #555;
-            font-weight: 500;
-            transition: color 0.3s;
+            font-weight: 450;
+            transition: all 0.3s ease;
+            padding: 0.4rem 0;
+            position: relative;
+            font-size: 1rem;
+            letter-spacing: 0.3px;
         }
-        
-        .nav-links a:hover {
-            color: #4361ee;
+
+        nav ul li a:hover {
+            color: #ffffff;
         }
-        
-        .cta-button {
-            background-color: #4361ee;
-            color: white;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
         }
-        
-        .cta-button:hover {
-            background-color: #3a56d4;
-            transform: translateY(-2px);
+
+        nav ul li a:hover::after {
+            width: 100%;
         }
-        
-        .mobile-menu-btn {
+
+        .mobile-menu {
             display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: #333;
+            font-size: 1.8rem;
             cursor: pointer;
+            color: #fff;
         }
-        
-        /* Hero Section */
+
+        /* ----- HERO (品牌宣言) ----- */
         .hero {
-            padding: 150px 0 100px;
-            background: linear-gradient(135deg, #f0f4ff 0%, #f9fbfd 100%);
+            background: linear-gradient(135deg, #0b1a2a 0%, #1e2b3c 50%, #2c3e50 100%);
+            color: var(--white);
+            padding: 4.5rem 0 5rem;
+            text-align: center;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+            position: relative;
+            overflow: hidden;
         }
-        
+
+        .hero::before {
+            content: "⌛";
+            position: absolute;
+            font-size: 22rem;
+            opacity: 0.03;
+            right: -5%;
+            bottom: -20%;
+            transform: rotate(12deg);
+            pointer-events: none;
+        }
+
         .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .hero-text {
-            flex: 1;
-            padding-right: 40px;
-        }
-        
-        .hero-text h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: #222;
-        }
-        
-        .hero-text h1 span {
-            color: #4361ee;
-        }
-        
-        .hero-text p {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 30px;
-            max-width: 600px;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .secondary-button {
-            background-color: white;
-            color: #4361ee;
-            border: 2px solid #4361ee;
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .secondary-button:hover {
-            background-color: #f0f4ff;
-        }
-        
-        .hero-image {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .hero-image img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(67, 97, 238, 0.15);
-        }
-        
-        /* Features Section */
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 36px;
-            color: #222;
-            margin-bottom: 15px;
-        }
-        
-        .section-title p {
-            color: #666;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        .features {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-        
-        .feature-card {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature-icon {
-            background-color: #eef2ff;
-            color: #4361ee;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            font-size: 28px;
-        }
-        
-        .feature-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-        
-        .feature-card p {
-            color: #666;
-        }
-        
-        /* Benefits Section */
-        .benefits {
-            padding: 100px 0;
-            background-color: #f0f4ff;
-        }
-        
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .benefit-item {
-            text-align: center;
-            padding: 30px 20px;
-        }
-        
-        .benefit-icon {
-            color: #4361ee;
-            font-size: 40px;
-            margin-bottom: 20px;
-        }
-        
-        .benefit-item h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-        
-        .benefit-item p {
-            color: #666;
-        }
-        
-        /* Testimonials */
-        .testimonials {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .testimonial-slider {
             max-width: 800px;
             margin: 0 auto;
             position: relative;
         }
-        
-        .testimonial {
-            background: #f9fbfd;
-            padding: 40px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+
+        .hero h1 {
+            font-size: 3.8rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.6rem;
+            background: linear-gradient(to right, #ffffff, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.2);
         }
-        
-        .testimonial-text {
-            font-size: 18px;
-            font-style: italic;
-            margin-bottom: 30px;
-            color: #555;
+
+        .hero .subhead {
+            font-size: 1.25rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
         }
-        
-        .testimonial-author {
+
+        .hero .badge-group {
             display: flex;
-            align-items: center;
+            flex-wrap: wrap;
             justify-content: center;
+            gap: 1.2rem 2rem;
+            margin-top: 1.8rem;
         }
-        
-        .author-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #ddd;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #4361ee;
-            font-size: 24px;
+
+        .hero .badge-group span {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 0.5px;
         }
-        
-        .author-info h4 {
-            font-size: 18px;
-            margin-bottom: 5px;
+
+        .hero .badge-group i {
+            margin-right: 6px;
+            color: var(--gold);
         }
-        
-        .author-info p {
-            color: #777;
-            font-size: 14px;
+
+        .btn {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--dark);
+            padding: 0.7rem 2.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(212, 175, 55, 0.25);
+            letter-spacing: 0.5px;
         }
-        
-        /* Pricing Section */
-        .pricing {
-            padding: 100px 0;
-            background-color: #f9fbfd;
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(212, 175, 55, 0.35);
+            background: #e8c84a;
         }
-        
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid rgba(255,255,255,0.25);
+            color: #fff;
+            box-shadow: none;
         }
-        
-        .pricing-card {
-            background: white;
-            border-radius: 10px;
-            padding: 40px 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: var(--gold);
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        /* ----- 世界时钟卡片 (官网特色模块) ----- */
+        .clock-section {
+            padding: 4.5rem 0 5rem;
+            background: var(--light);
+        }
+
+        .section-title {
             text-align: center;
-            transition: transform 0.3s;
+            margin-bottom: 3.5rem;
         }
-        
-        .pricing-card.featured {
-            border-top: 5px solid #4361ee;
-            transform: scale(1.05);
+
+        .section-title h2 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            color: var(--primary);
+            letter-spacing: -0.01em;
             position: relative;
+            display: inline-block;
         }
-        
-        .featured-badge {
+
+        .section-title h2::after {
+            content: '';
             position: absolute;
-            top: -12px;
+            bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #4361ee;
-            color: white;
-            padding: 5px 20px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
+            width: 70px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 4px;
         }
-        
-        .pricing-card:hover {
-            transform: translateY(-10px);
+
+        .section-title p {
+            color: #4a5b6e;
+            max-width: 680px;
+            margin: 1.2rem auto 0;
+            font-size: 1.05rem;
         }
-        
-        .pricing-card.featured:hover {
-            transform: scale(1.05) translateY(-10px);
-        }
-        
-        .plan-name {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #333;
-        }
-        
-        .plan-price {
-            font-size: 48px;
-            font-weight: 700;
-            color: #4361ee;
-            margin-bottom: 20px;
-        }
-        
-        .plan-price span {
-            font-size: 16px;
-            color: #777;
-        }
-        
-        .plan-features {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-        
-        .plan-features li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            color: #555;
-        }
-        
-        .plan-features li:last-child {
-            border-bottom: none;
-        }
-        
-        /* CTA Section */
-        .cta-section {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #4361ee 0%, #3a56d4 100%);
-            text-align: center;
-            color: white;
-        }
-        
-        .cta-section h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-        
-        .cta-section p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            opacity: 0.9;
-        }
-        
-        .cta-section .cta-button {
-            background-color: white;
-            color: #4361ee;
-            font-size: 16px;
-            padding: 15px 40px;
-        }
-        
-        .cta-section .cta-button:hover {
-            background-color: #f0f4ff;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: #222;
-            color: #ccc;
-            padding: 70px 0 20px;
-        }
-        
-        .footer-content {
+
+        /* 时钟网格 — 优雅卡片 */
+        .time-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
+            gap: 1.8rem 1.2rem;
+            margin-top: 0.5rem;
         }
-        
+
+        .city-card {
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 32px;
+            padding: 1.5rem 0.6rem 1.2rem;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0, 10, 20, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            transition: transform 0.2s ease, box-shadow 0.25s;
+            background: rgba(255,255,255,0.5);
+        }
+
+        .city-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 36px -10px rgba(0, 20, 30, 0.12);
+            background: rgba(255,255,255,0.75);
+            border-color: rgba(212, 175, 55, 0.2);
+        }
+
+        .city-name {
+            font-weight: 500;
+            font-size: 1.1rem;
+            letter-spacing: 0.02em;
+            color: #1e2b3c;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .city-name .flag {
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .city-time {
+            font-size: 2.5rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: #0b1a2a;
+            line-height: 1.2;
+            font-variant-numeric: tabular-nums;
+            margin: 0.25rem 0 0.1rem;
+        }
+
+        .city-seconds {
+            font-size: 0.95rem;
+            font-weight: 350;
+            color: #3d5a78;
+            opacity: 0.7;
+        }
+
+        .city-date {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: #3f5a70;
+            background: rgba(130, 160, 190, 0.08);
+            display: inline-block;
+            padding: 0.15rem 0.9rem;
+            border-radius: 30px;
+            margin-top: 0.3rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            letter-spacing: 0.2px;
+        }
+
+        .timezone-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #5f7a94;
+            background: rgba(200, 215, 230, 0.2);
+            padding: 0.1rem 0.6rem;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-weight: 400;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* ----- 特色内容 (About / CTA) 官网风格 ----- */
+        .about-brand {
+            background: var(--white);
+            padding: 4rem 0;
+            border-top: 1px solid rgba(0,0,0,0.03);
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 1.2rem;
+        }
+
+        .about-text p {
+            color: #2c3e50;
+            margin-bottom: 1.2rem;
+            font-weight: 350;
+        }
+
+        .about-stats {
+            display: flex;
+            gap: 2.5rem;
+            margin-top: 1.8rem;
+        }
+
+        .about-stats div {
+            text-align: center;
+        }
+
+        .about-stats .num {
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: var(--gold);
+            letter-spacing: -0.02em;
+        }
+
+        .about-stats .label {
+            font-size: 0.8rem;
+            color: #4a5b6e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .about-img {
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.06);
+            background: #eef2f7;
+        }
+
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .about-img:hover img {
+            transform: scale(1.02);
+        }
+
+        /* CTA 横幅 */
+        .cta-banner {
+            background: linear-gradient(135deg, #1a2639, #2c3e50);
+            color: #fff;
+            padding: 3.8rem 0;
+            text-align: center;
+            border-top: 2px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .cta-banner h2 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+        }
+
+        .cta-banner p {
+            font-size: 1.1rem;
+            opacity: 0.75;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-banner .btn {
+            background: var(--gold);
+            color: #0b1a2a;
+        }
+
+        .cta-banner .btn:hover {
+            background: #e8c84a;
+        }
+
+        /* Footer */
+        footer {
+            background: #0b1a2a;
+            color: rgba(255,255,255,0.7);
+            padding: 3rem 0 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
         .footer-column h3 {
-            font-size: 20px;
-            color: white;
-            margin-bottom: 25px;
+            color: #fff;
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding-bottom: 8px;
         }
-        
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--gold);
+        }
+
+        .footer-column p, .footer-links li {
+            font-size: 0.9rem;
+            margin-bottom: 0.6rem;
+        }
+
         .footer-links {
             list-style: none;
         }
-        
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-links a {
-            color: #aaa;
+
+        .footer-links li a {
+            color: rgba(255,255,255,0.6);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.2s;
         }
-        
-        .footer-links a:hover {
-            color: #4361ee;
+
+        .footer-links li a:hover {
+            color: var(--gold);
+            padding-left: 4px;
         }
-        
+
+        .social-links {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 50%;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            color: #0b1a2a;
+            transform: translateY(-3px);
+        }
+
         .copyright {
             text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #444;
-            font-size: 14px;
-            color: #888;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.3);
         }
-        
-        /* Responsive Design */
+
+        /* 响应式 */
         @media (max-width: 992px) {
-            .hero-content {
-                flex-direction: column;
-            }
-            
-            .hero-text {
-                padding-right: 0;
-                margin-bottom: 50px;
-                text-align: center;
-            }
-            
-            .hero-text p {
-                margin: 0 auto 30px;
-            }
-            
-            .pricing-card.featured {
-                transform: none;
-            }
-            
-            .pricing-card.featured:hover {
-                transform: translateY(-10px);
-            }
+            .about-grid { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: repeat(2, 1fr); }
+            .hero h1 { font-size: 2.8rem; }
         }
-        
+
         @media (max-width: 768px) {
-            .nav-links {
+            nav ul {
                 display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero-text h1 {
-                font-size: 36px;
-            }
-            
-            .section-title h2 {
-                font-size: 30px;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .hero-buttons button {
+                position: absolute;
+                top: 100%;
+                left: 0;
                 width: 100%;
-                max-width: 300px;
+                background: var(--gradient-start);
+                flex-direction: column;
+                padding: 1rem 0;
+                text-align: center;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+                border-top: 1px solid rgba(255,255,255,0.05);
             }
+            nav ul.active { display: flex; }
+            nav ul li { margin: 0; padding: 0.5rem 0; }
+            .mobile-menu { display: block; }
+            .hero h1 { font-size: 2.4rem; }
+            .about-stats { flex-wrap: wrap; gap: 1.5rem; }
+            .footer-content { grid-template-columns: 1fr; }
+            .time-grid { gap: 1rem; }
         }
-        
-        @media (max-width: 576px) {
-            .hero {
-                padding: 130px 0 80px;
-            }
-            
-            .features, .benefits, .testimonials, .pricing, .cta-section {
-                padding: 70px 0;
-            }
-            
-            .feature-card, .testimonial {
-                padding: 25px;
-            }
-            
-            .plan-price {
-                font-size: 36px;
-            }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2rem; }
+            .city-time { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Header & Navigation -->
+    <!-- HEADER (官网导航) -->
     <header>
-        <div class="container">
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fas fa-clock"></i>
+                <span>Cheymin's TIME</span>
+            </div>
             <nav>
-                <div class="logo">
-                    <div class="logo-icon"><i class="fas fa-bezier-curve"></i></div>
-                    <div class="logo-text">Code<span>Flow</span></div>
+                <div class="mobile-menu" id="mobileMenu">
+                    <i class="fas fa-bars"></i>
                 </div>
-                
-                <ul class="nav-links">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#benefits">Benefits</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#">Resources</a></li>
+                <ul id="navMenu">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#worldclock">世界时钟</a></li>
+                    <li><a href="#about">关于</a></li>
+                    <li><a href="#contact">联系</a></li>
+                    <li><a href="#" class="btn btn-outline" style="padding: 0.4rem 1.4rem;">加入</a></li>
                 </ul>
-                
-                <button class="cta-button">Start Free Trial</button>
-                <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Build Apps Faster With <span>Visual Development</span></h1>
-                    <p>CodeFlow empowers teams to create enterprise-grade applications with minimal coding. Drag, drop, and connect components to build powerful web and mobile apps in record time.</p>
-                    <div class="hero-buttons">
-                        <button class="cta-button">Start Building Free</button>
-                        <button class="secondary-button">Watch Demo</button>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="CodeFlow Platform Interface">
-                </div>
+    <!-- HERO 品牌区 -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1>⌛ Cheymin's TIME</h1>
+            <p class="subhead">同步世界脉搏 · 每一秒都珍贵</p>
+            <div class="badge-group">
+                <span><i class="fas fa-globe-americas"></i> 12 时区</span>
+                <span><i class="fas fa-sync-alt"></i> 实时同步</span>
+                <span><i class="fas fa-shield-alt"></i> 精准至秒</span>
+            </div>
+            <div style="margin-top: 2.2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="#worldclock" class="btn">探索时间</a>
+                <a href="#about" class="btn btn-outline">了解更多</a>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
+    <!-- 世界时钟模块 (核心) -->
+    <section class="clock-section" id="worldclock">
         <div class="container">
             <div class="section-title">
-                <h2>Powerful Features for Rapid Development</h2>
-                <p>CodeFlow provides all the tools you need to build, deploy, and scale applications without writing extensive code.</p>
+                <h2>🌍 全球时间 · 此刻共鸣</h2>
+                <p>从伦敦到东京，每一座城市都在自己的节奏里，而我们在同一秒相遇。</p>
             </div>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-th-large"></i>
-                    </div>
-                    <h3>Visual Builder</h3>
-                    <p>Drag and drop UI components to design responsive interfaces. Connect data sources with simple point-and-click actions.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>Database Integration</h3>
-                    <p>Connect to any data source with built-in connectors. Automatically generate CRUD operations without writing SQL.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Cross-Platform</h3>
-                    <p>Build once, deploy everywhere. Generate applications for web, iOS, and Android from a single visual design.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Extensible with Code</h3>
-                    <p>Add custom functionality with JavaScript when needed. Our platform doesn't limit your creativity or complexity.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Enterprise Security</h3>
-                    <p>Built-in authentication, authorization, and data encryption. SOC2 compliant with enterprise-grade security features.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3>One-Click Deployment</h3>
-                    <p>Deploy to cloud or on-premises with a single click. Automatic scaling and monitoring included.</p>
-                </div>
+            <div class="time-grid" id="timeGrid">
+                <!-- 由 JS 动态渲染 -->
             </div>
         </div>
     </section>
 
-    <!-- Benefits Section -->
-    <section class="benefits" id="benefits">
+    <!-- 关于品牌 (官网风格) -->
+    <section class="about-brand" id="about">
         <div class="container">
-            <div class="section-title">
-                <h2>Why Choose CodeFlow?</h2>
-                <p>Join thousands of companies accelerating their digital transformation with low-code development.</p>
-            </div>
-            
-            <div class="benefits-grid">
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-bolt"></i>
+            <div class="about-grid">
+                <div class="about-text">
+                    <h3>时间即连接</h3>
+                    <p><strong>Cheymin's TIME</strong> 不仅仅是一个时钟，更是一个跨越时区的视角。我们相信，在全球化时代，了解彼此的时间是理解彼此文化的开始。</p>
+                    <p>源于对世界的好奇，我们打造了这个简洁、优雅的时间工具，让每一次查看都成为一种享受。</p>
+                    <div class="about-stats">
+                        <div><span class="num">12+</span><div class="label">城市</div></div>
+                        <div><span class="num">24/7</span><div class="label">实时</div></div>
+                        <div><span class="num">∞</span><div class="label">可能性</div></div>
                     </div>
-                    <h3>10x Faster Development</h3>
-                    <p>Build applications in days instead of months with visual development tools.</p>
                 </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-money-bill-wave"></i>
-                    </div>
-                    <h3>Reduce Costs by 70%</h3>
-                    <p>Lower development and maintenance costs with fewer resources required.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Citizen Developers</h3>
-                    <p>Enable business users to build solutions with minimal IT assistance.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Scale Effortlessly</h3>
-                    <p>From prototype to enterprise-scale applications with the same platform.</p>
+                <div class="about-img">
+                    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="世界时钟概念">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="testimonials" id="testimonials">
+    <!-- CTA 横幅 -->
+    <section class="cta-banner" id="contact">
         <div class="container">
-            <div class="section-title">
-                <h2>Trusted by Industry Leaders</h2>
-                <p>See what our customers have to say about their experience with CodeFlow.</p>
-            </div>
-            
-            <div class="testimonial-slider">
-                <div class="testimonial">
-                    <div class="testimonial-text">
-                        "CodeFlow transformed how we deliver solutions to our business units. What used to take 6 months now takes 3 weeks. Our development team can focus on complex problems while business teams build their own solutions."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">SC</div>
-                        <div class="author-info">
-                            <h4>Sarah Chen</h4>
-                            <p>CTO, TechGrowth Inc.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <h2>与世界同步</h2>
+            <p>加入 Cheymin's TIME 社区，获取更多时间美学与全球视角。</p>
+            <a href="#" class="btn">订阅更新</a>
         </div>
     </section>
 
-    <!-- Pricing Section -->
-    <section class="pricing" id="pricing">
-        <div class="container">
-            <div class="section-title">
-                <h2>Simple, Transparent Pricing</h2>
-                <p>Choose the plan that fits your needs. All plans include core features with no hidden fees.</p>
-            </div>
-            
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <h3 class="plan-name">Starter</h3>
-                    <div class="plan-price">$29<span>/month</span></div>
-                    <ul class="plan-features">
-                        <li>Up to 5 users</li>
-                        <li>10 GB storage</li>
-                        <li>Basic components</li>
-                        <li>Community support</li>
-                        <li>1 production app</li>
-                    </ul>
-                    <button class="secondary-button">Get Started</button>
-                </div>
-                
-                <div class="pricing-card featured">
-                    <div class="featured-badge">Most Popular</div>
-                    <h3 class="plan-name">Professional</h3>
-                    <div class="plan-price">$89<span>/month</span></div>
-                    <ul class="plan-features">
-                        <li>Up to 25 users</li>
-                        <li>100 GB storage</li>
-                        <li>All components</li>
-                        <li>Priority support</li>
-                        <li>10 production apps</li>
-                        <li>Custom branding</li>
-                    </ul>
-                    <button class="cta-button">Try Free for 14 Days</button>
-                </div>
-                
-                <div class="pricing-card">
-                    <h3 class="plan-name">Enterprise</h3>
-                    <div class="plan-price">Custom</div>
-                    <ul class="plan-features">
-                        <li>Unlimited users</li>
-                        <li>Unlimited storage</li>
-                        <li>All features included</li>
-                        <li>24/7 dedicated support</li>
-                        <li>Unlimited apps</li>
-                        <li>On-premises option</li>
-                    </ul>
-                    <button class="secondary-button">Contact Sales</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2>Start Building Today</h2>
-            <p>Join over 10,000 companies that use CodeFlow to accelerate their application development. No credit card required for the free trial.</p>
-            <button class="cta-button">Get Started for Free</button>
-        </div>
-    </section>
-
-    <!-- Footer -->
+    <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <div class="logo">
-                        <div class="logo-icon"><i class="fas fa-bezier-curve"></i></div>
-                        <div class="logo-text">Code<span>Flow</span></div>
+                    <h3>Cheymin's TIME</h3>
+                    <p>优雅 · 精准 · 全球视野。一个关于时间的品牌。</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
-                    <p style="margin-top: 20px; color: #aaa;">The leading visual development platform for building enterprise applications with minimal coding.</p>
                 </div>
-                
                 <div class="footer-column">
-                    <h3>Product</h3>
+                    <h3>探索</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Use Cases</a></li>
-                        <li><a href="#">Integrations</a></li>
-                        <li><a href="#">Roadmap</a></li>
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#worldclock">世界时钟</a></li>
+                        <li><a href="#about">关于</a></li>
+                        <li><a href="#">博客</a></li>
                     </ul>
                 </div>
-                
                 <div class="footer-column">
-                    <h3>Resources</h3>
+                    <h3>支持</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Tutorials</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Community</a></li>
-                        <li><a href="#">Support</a></li>
+                        <li><a href="#">帮助中心</a></li>
+                        <li><a href="#">隐私政策</a></li>
+                        <li><a href="#">使用条款</a></li>
                     </ul>
                 </div>
-                
                 <div class="footer-column">
-                    <h3>Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
+                    <h3>联系</h3>
+                    <p><i class="fas fa-envelope" style="margin-right: 8px;"></i> hello@cheymin.time</p>
+                    <p><i class="fas fa-map-pin" style="margin-right: 8px;"></i> 全球 · 云端</p>
                 </div>
             </div>
-            
             <div class="copyright">
-                <p>&copy; 2023 CodeFlow. All rights reserved.</p>
+                &copy; 2026 Cheymin's TIME — 每一秒，都值得被看见。
             </div>
         </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-            
-            // Adjust for mobile
-            if (window.innerWidth <= 768) {
-                if (navLinks.style.display === 'flex') {
-                    navLinks.style.flexDirection = 'column';
-                    navLinks.style.position = 'absolute';
-                    navLinks.style.top = '80px';
-                    navLinks.style.left = '0';
-                    navLinks.style.width = '100%';
-                    navLinks.style.backgroundColor = 'white';
-                    navLinks.style.padding = '20px';
-                    navLinks.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
-                    
-                    const navItems = document.querySelectorAll('.nav-links li');
-                    navItems.forEach(item => {
-                        item.style.margin = '10px 0';
+        (function() {
+            "use strict";
+
+            // ----- 城市数据 (国家旗帜 + 时区) -----
+            const cities = [
+                { name: 'London', country: '🇬🇧', timezone: 'Europe/London' },
+                { name: 'New York', country: '🇺🇸', timezone: 'America/New_York' },
+                { name: 'Tokyo', country: '🇯🇵', timezone: 'Asia/Tokyo' },
+                { name: 'Sydney', country: '🇦🇺', timezone: 'Australia/Sydney' },
+                { name: 'Dubai', country: '🇦🇪', timezone: 'Asia/Dubai' },
+                { name: 'Paris', country: '🇫🇷', timezone: 'Europe/Paris' },
+                { name: 'Moscow', country: '🇷🇺', timezone: 'Europe/Moscow' },
+                { name: 'Singapore', country: '🇸🇬', timezone: 'Asia/Singapore' },
+                { name: 'Los Angeles', country: '🇺🇸', timezone: 'America/Los_Angeles' },
+                { name: 'Berlin', country: '🇩🇪', timezone: 'Europe/Berlin' },
+                { name: 'Bangkok', country: '🇹🇭', timezone: 'Asia/Bangkok' },
+                { name: 'Cairo', country: '🇪🇬', timezone: 'Africa/Cairo' }
+            ];
+
+            const grid = document.getElementById('timeGrid');
+            const cardItems = [];
+
+            // ----- 构建卡片 -----
+            function buildCards() {
+                grid.innerHTML = '';
+                cardItems.length = 0;
+
+                cities.forEach((city, idx) => {
+                    const card = document.createElement('div');
+                    card.className = 'city-card';
+                    card.dataset.index = idx;
+
+                    const nameDiv = document.createElement('div');
+                    nameDiv.className = 'city-name';
+                    nameDiv.innerHTML = `<span class="flag">${city.country}</span> ${city.name}`;
+
+                    const timeDiv = document.createElement('div');
+                    timeDiv.className = 'city-time';
+                    timeDiv.id = `ct-${idx}`;
+                    timeDiv.textContent = '--:--:--';
+
+                    const dateDiv = document.createElement('div');
+                    dateDiv.className = 'city-date';
+                    dateDiv.id = `cd-${idx}`;
+                    dateDiv.textContent = '----年--月--日';
+
+                    const tzLabel = document.createElement('div');
+                    tzLabel.className = 'timezone-label';
+                    const short = city.timezone.split('/').pop().replace('_', ' ');
+                    tzLabel.textContent = `🕒 ${short}`;
+
+                    card.appendChild(nameDiv);
+                    card.appendChild(timeDiv);
+                    card.appendChild(dateDiv);
+                    card.appendChild(tzLabel);
+                    grid.appendChild(card);
+
+                    cardItems.push({
+                        timeEl: timeDiv,
+                        dateEl: dateDiv,
+                        timezone: city.timezone
                     });
-                }
+                });
             }
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    if(window.innerWidth <= 768) {
-                        document.querySelector('.nav-links').style.display = 'none';
+
+            // ----- 更新时间 -----
+            function updateClocks() {
+                const now = new Date();
+                cardItems.forEach((item) => {
+                    const { timezone, timeEl, dateEl } = item;
+                    try {
+                        const timeFormatter = new Intl.DateTimeFormat('zh-CN', {
+                            timeZone: timezone,
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit',
+                            hour12: false
+                        });
+                        const dateFormatter = new Intl.DateTimeFormat('zh-CN', {
+                            timeZone: timezone,
+                            year: 'numeric',
+                            month: 'short',
+                            day: '2-digit',
+                            weekday: 'short'
+                        });
+                        timeEl.textContent = timeFormatter.format(now);
+                        dateEl.textContent = dateFormatter.format(now).replace(/\s/g, ' ');
+                    } catch (_) {
+                        timeEl.textContent = now.toLocaleTimeString('zh-CN', { hour12: false });
+                        dateEl.textContent = now.toLocaleDateString('zh-CN', { year: 'numeric', month: 'short', day: '2-digit', weekday: 'short' });
                     }
-                }
-            });
-        });
-        
-        // Simple testimonial slider
-        const testimonials = [
-            {
-                text: "CodeFlow transformed how we deliver solutions to our business units. What used to take 6 months now takes 3 weeks. Our development team can focus on complex problems while business teams build their own solutions.",
-                name: "Sarah Chen",
-                position: "CTO, TechGrowth Inc.",
-                initials: "SC"
-            },
-            {
-                text: "We reduced our app development time by 80% using CodeFlow. The visual interface made it easy for our analysts to build data dashboards without waiting for IT resources.",
-                name: "Marcus Johnson",
-                position: "Director of Operations, DataCorp",
-                initials: "MJ"
-            },
-            {
-                text: "As a non-technical founder, CodeFlow allowed me to build our MVP in just 2 months. I could test ideas quickly and iterate based on user feedback without deep coding knowledge.",
-                name: "Lisa Wang",
-                position: "Founder, StartupLabs",
-                initials: "LW"
+                });
             }
-        ];
-        
-        let currentTestimonial = 0;
-        const testimonialElement = document.querySelector('.testimonial');
-        
-        function rotateTestimonial() {
-            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-            updateTestimonial();
-        }
-        
-        function updateTestimonial() {
-            const testimonial = testimonials[currentTestimonial];
-            testimonialElement.innerHTML = `
-                <div class="testimonial-text">"${testimonial.text}"</div>
-                <div class="testimonial-author">
-                    <div class="author-avatar">${testimonial.initials}</div>
-                    <div class="author-info">
-                        <h4>${testimonial.name}</h4>
-                        <p>${testimonial.position}</p>
-                    </div>
-                </div>
-            `;
-        }
-        
-        // Auto-rotate testimonials every 5 seconds
-        setInterval(rotateTestimonial, 5000);
-        
-        // CTA button interactions
-        document.querySelectorAll('.cta-button').forEach(button => {
-            button.addEventListener('click', function() {
-                alert('Thank you for your interest in CodeFlow! You would be redirected to the signup page in a real implementation.');
+
+            // ----- 移动端菜单 -----
+            document.getElementById('mobileMenu').addEventListener('click', function() {
+                document.getElementById('navMenu').classList.toggle('active');
             });
-        });
-        
-        // Pricing card interactions
-        document.querySelectorAll('.pricing-card button').forEach(button => {
-            button.addEventListener('click', function() {
-                const planName = this.closest('.pricing-card').querySelector('.plan-name').textContent;
-                alert(`You selected the ${planName} plan. In a real implementation, you would be redirected to the checkout process.`);
+
+            // 点击导航链接关闭菜单
+            document.querySelectorAll('#navMenu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    document.getElementById('navMenu').classList.remove('active');
+                });
             });
-        });
+
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#') return;
+                    const target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        window.scrollTo({
+                            top: target.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // ----- 初始化 -----
+            buildCards();
+            updateClocks();
+            setInterval(updateClocks, 1000);
+
+        })();
     </script>
 </body>
 </html>
